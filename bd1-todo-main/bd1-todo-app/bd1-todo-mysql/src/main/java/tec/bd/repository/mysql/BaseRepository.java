@@ -1,26 +1,23 @@
 package tec.bd.repository.mysql;
 
-import tec.bd.datasource.DBManager;
-
-import javax.sql.DataSource;
 import java.sql.*;
 
 public abstract class BaseRepository<T> {
 
-    protected DBManager dbManager;
-
-    protected BaseRepository(DBManager dbManager) {
-        this.dbManager = dbManager;
-    }
+    protected final static String CONNECTION_STRING = "jdbc:mysql://localhost:3306/todo?serverTimezone=UTC";
+    protected final static String DB_USERNAME = "root";
+    protected final static String DB_PASSWORD = "facu";
+    protected final static String Zone = "serverTimezone=UTC";
 
 
     protected Connection connect() throws SQLException {
-        return this.dbManager.getConnection();
+        Connection connection = DriverManager.getConnection(CONNECTION_STRING, DB_USERNAME, DB_PASSWORD);
+        return connection;
     }
 
     protected ResultSet query(String sqlQuery) throws SQLException {
         //Connection connection = DriverManager.getConnection(CONNECTION_STRING, DB_USERNAME, DB_PASSWORD);
-        var connection = this.connect();
+        var connection = connect();
         Statement stmt = connection.createStatement();
         //execute query -- consultas de seleccion
         ResultSet resultSet = stmt.executeQuery(sqlQuery);

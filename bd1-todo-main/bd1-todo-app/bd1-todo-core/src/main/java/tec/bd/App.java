@@ -12,6 +12,7 @@ public class App
         var todo = appContext.getTodo();
 
         todo.addTodoRecord(new TodoRecord("Desayuno"));
+
         todo.addTodoRecord(new TodoRecord("Almuerzo"));
         todo.addTodoRecord(new TodoRecord("Cena"));
 

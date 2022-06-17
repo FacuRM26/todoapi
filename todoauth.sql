@@ -14,8 +14,9 @@ sessionStatus enum('ACTIVE','INACTIVE'),
 foreign key(client_id) references clients(client_id),
 createdat timestamp not null
 );
-drop user if exists authappuser;
-create user 'authappuser' identified by 'authapppassword';
+drop user if exists authappuser @'localhost';
+create user 'authappuser'@'localhost' identified by 'authapppassword';
+GRANT ALL PRIVILEGES ON * . * TO 'authappuser'@'localhost';
 
 drop PROCEDURE if exists create_session;
 DELIMITER $$
@@ -25,9 +26,9 @@ begin
     declare session_exist boolean;
     declare session_diff int;
 
-    SELECT if(Count(*)>0,true,false)as client_id_exist FROM clients WHERE client_id = client_id;
+    select if(timestampdiff(minute, createdat, utc_timestamp()) <= 30, "ACTIVE", "INACTIVE") as sessionStatus from sessions where clientId =client_id;
     if client_id_exist=true then
-        SELECT if(count(*)>0,true,false)into session_exist  FROM sessions WHERE session_id = client_id;
+        select if(timestampdiff(minute, createdat, utc_timestamp()) <= 30, "ACTIVE", "INACTIVE") as sessionStatus from sessions where clientId =client_id;
         if session_exist=true then
             SELECT minute(timediff(utc_timestamp(),created_at)) into session_diff FROM sessions where client_id = client_id;
             if session_dif<=session_ttl then

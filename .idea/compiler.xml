@@ -17,8 +17,8 @@
     <bytecodeTargetLevel>
       <module name="bd1-todo-api" target="11" />
       <module name="bd1-todo-auth-api" target="11" />
-      <module name="bd1-todo-core" target="11" />
-      <module name="bd1-todo-inmemdb" target="11" />
+      <module name="bd1-todo-core" target="10" />
+      <module name="bd1-todo-inmemdb" target="10" />
       <module name="bd1-todo-mysql" target="11" />
       <module name="bd1-todo-social-api" target="11" />
     </bytecodeTargetLevel>

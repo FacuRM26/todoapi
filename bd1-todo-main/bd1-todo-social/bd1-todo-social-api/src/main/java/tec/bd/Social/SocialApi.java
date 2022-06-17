@@ -72,8 +72,7 @@ public class SocialApi
         },gson::toJson);
 
         delete("/ratings/:todo-id", (request, response) -> {
-            var ratingId = request.params("todo-id");
-            ratingsService.deleteRating(ratingId);
+            ratingsService.deleteRating(request.params("todo-id"));
             response.status(200);
             return Map.of("Deleted", "OK");
         },gson::toJson);

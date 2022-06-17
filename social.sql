@@ -7,7 +7,7 @@ create table rating(
     ratingvalue int not null,
     todoid varchar(50) not null,
     clientid varchar(50) not null,
-    createdat datetime not null
+    createdat timestamp not null
 );
 
 drop table if exists reviews;
@@ -19,7 +19,9 @@ create table reviews(
     imageid int
     );
     
-
+drop user if exists 'todosocialuser'@'localhost';
+create user 'todosocialuser'@'localhost' identified by 'todosocialpass';
+GRANT ALL PRIVILEGES ON * . * TO 'todosocialuser'@'localhost';
 
 drop PROCEDURE if exists calculated_rating_avg;
 DELIMITER $$
@@ -32,9 +34,11 @@ DELIMITER ;
 drop PROCEDURE if exists add_rating;
 DELIMITER $$
 create PROCEDURE add_rating(in ratingvalueParam int,in todoidParam varchar(50),in clienteidParam varchar(50), 
-					in createdatParam datetime)
+					in createdatParam date)
 begin
+start transaction;
 insert into rating(ratingvalue,todoid,clientid,createdat) values(ratingvalueParam ,todoidParam,clienteidParam,createdatParam);
+commit;
 end$$
 DELIMITER ;
 
@@ -42,7 +46,9 @@ drop PROCEDURE if exists delete_rating;
 DELIMITER $$
 create PROCEDURE delete_rating(in todoidParam varchar(50) )
 begin
+start transaction;
 delete from rating where todoid=todoidParam;
+commit;
 end$$
 DELIMITER ;
 
@@ -70,7 +76,21 @@ drop PROCEDURE if exists delete_review;
 DELIMITER $$
 create PROCEDURE delete_review(in todoidParam varchar(50) )
 begin
+start transaction;
 delete from reviews where id=todoidParam;
+commit;
+end$$
+DELIMITER ;
+
+drop PROCEDURE if exists update_review;
+DELIMITER $$
+create PROCEDURE update_review(in todoId varchar(50) ,in  createdAtParam Date ,in reviewTexParam varchar(200) )
+begin
+start transaction;
+UPDATE reviews
+SET fecha= createdAtParam,  comentario=reviewTexParam
+WHERE id=todoId; 
+commit;
 end$$
 DELIMITER ;
 

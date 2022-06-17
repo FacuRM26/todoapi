@@ -4,9 +4,7 @@ import tec.bd.todo.Status;
 import tec.bd.todo.TodoRecord;
 import tec.bd.todo.repository.TodoRepository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class TodoRepositoryListImpl implements TodoRepository {
 
@@ -45,40 +43,40 @@ public class TodoRepositoryListImpl implements TodoRepository {
 
     @Override
     public void remove(String id) {
-
         var todoRecord = this.findById(id);
-        // TODO: todoRecord podria devolver nulo y esto podria causar NullPointerException. Poner if/else para validar
         this.todoData.remove(todoRecord);
     }
 
-    /**
-     *
-     *  TodoRecord:
-     *   id: 2
-     *   title: desayuno
-     *
-     *  TodoRecord:
-     *   id: 2
-     *   title: cena
-     *
-     * @param todoRecord
-     * @return
-     */
+
     @Override
     public TodoRecord update(TodoRecord todoRecord) {
-        // 1. buscar el id del todoRecord
-        // 2. borrar de la lista el todoRecord "viejo"
-        // 3. insertar el todoRecord
-        return null;
+        this.todoData.remove(todoRecord);
+        this.todoData.add(todoRecord);
+        return todoRecord;
     }
+
 
     @Override
     public List<TodoRecord> findByPatternInTitle(String textToSearch) {
-        return null;
+        Iterator<TodoRecord> it=todoData.iterator();;
+        List<TodoRecord> lista = new ArrayList<TodoRecord>();
+        while (it.hasNext()) {
+            if (it.next().getTitle().matches(textToSearch)) {
+                lista.add(it.next());
+            }
+        }
+        return lista;
     }
 
     @Override
     public List<TodoRecord> findByBetweenStartDates(Date startDate, Date endDate) {
-        return null;
+        Iterator<TodoRecord> it= todoData.iterator();
+        List<TodoRecord> lista = new ArrayList<TodoRecord>();
+        while (it.hasNext()) {
+            if (it.next().getStartDate().after(startDate) && it.next().getEndDate().before(endDate) ) {
+                lista.add(it.next());
+            }
+        }
+        return lista;
     }
 }

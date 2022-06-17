@@ -26,7 +26,7 @@ public class TodoController {
     }
 
     public List<TodoRecord> getAllTodos(Request request, Response response) {
-        var todos = this.todo.getAll();
+        var todos = this.todo.getAll() ;
         if(todos.isEmpty()) {
             response.status(204);
         }
@@ -54,7 +54,6 @@ public class TodoController {
         var todoStatus = Status.valueOf(status.toUpperCase());
 
         var todoRecords = this.todo.getAll(todoStatus);
-        response.status(200);
         if(todoRecords.isEmpty()) {
             response.status(404);
         }
@@ -71,7 +70,7 @@ public class TodoController {
 
         response.header("Content-Type", "application/json");
         response.header("Location", "/todos/" + newTodo.getId());
-        response.status(201); // 201 - Created
+        response.status(201);
         return newTodo;
 
     }
@@ -91,7 +90,7 @@ public class TodoController {
         var todoRecord = GSON.fromJson(request.body(), TodoRecord.class);
         //TODO: si hay una exception capturar y retornar 500
 
-        var newTodo = this.todo.update(todoRecord);
+        var newTodo = this.todo.updateTodoRecord(todoRecord);
 
         response.header("Content-Type", "application/json");
         response.header("Location", "/todos/" + newTodo.getId());
@@ -120,12 +119,11 @@ public class TodoController {
             var startDate = formatter.parse(start);
             var endDate = formatter.parse(end);
             System.out.println("Start :" + startDate + ", End: " + endDate);
+            var result = this.todo.getStartDateRange(startDate,endDate);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
 
         return Collections.emptyList();
     }
