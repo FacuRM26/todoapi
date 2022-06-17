@@ -11,5 +11,7 @@
     <file url="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-mysql/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-auth/bd1-todo-auth-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-auth/bd1-todo-auth-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-social/bd1-todo-social-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-social/bd1-todo-social-api/src/main/resources" charset="UTF-8" />
   </component>
 </project>

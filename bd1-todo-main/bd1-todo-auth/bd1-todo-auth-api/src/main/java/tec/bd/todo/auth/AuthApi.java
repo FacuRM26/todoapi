@@ -39,8 +39,8 @@ public class AuthApi {
             return credentials;
         }, gson::toJson);
 
-        delete("/clients/:client-id", (request, response) -> {
-            var clientId = request.params("client-id");
+        delete("/clients/:client_id", (request, response) -> {
+            var clientId = request.params("client_id");
             sessionService.deleteClient(clientId);
             response.status(200);
             return Map.of("Deleted", "OK");
@@ -51,6 +51,7 @@ public class AuthApi {
         }, gson::toJson);
 
         post("/sessions", (request, response) -> {
+            System.out.println("entro: ");
             var credentials = gson.fromJson(request.body(), ClientCredentials.class);
             try {
                 var session = sessionService.newSession(credentials);
@@ -69,6 +70,18 @@ public class AuthApi {
                 return Map.of("Message", "Bad Request");
             }
             return sessionService.validateSession(sessionParam);
+        }, gson::toJson);
+
+        post("/sessions/:client_id/:clientSecret", (request, response) -> {
+            var credentials = gson.fromJson(request.body(), ClientCredentials.class);
+            try {
+                var session = sessionService.newSession(credentials);
+                response.status(200);
+                return session;
+            } catch (SessionServiceImpl.CredentialsException e) {
+                response.status(400);
+                return Map.of("Message", "Bad Credentials");
+            }
         }, gson::toJson);
     }
 }

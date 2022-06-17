@@ -6,12 +6,13 @@ create table clients(
 client_id varchar(255) primary key,
 client_secret varchar(255) not null
 );
-
+drop table if exists sessions;
 create table sessions(
 session_id varchar(255) primary key,
 client_id varchar(255) not null,
+sessionStatus enum('ACTIVE','INACTIVE'),
 foreign key(client_id) references clients(client_id),
-created_at timestamp not null
+createdat timestamp not null
 );
 drop user if exists authappuser;
 create user 'authappuser' identified by 'authapppassword';
@@ -71,11 +72,13 @@ insert into clients(client_id,client_secret) values('3','testpass3');
 insert into clients(client_id,client_secret) values('4','testpass4');
 insert into clients(client_id,client_secret) values('5','testpass5');
 
-insert into sessions(session_id,client_id,created_at) values(10,1,utc_timestamp());
-insert into sessions(session_id,client_id,created_at) values(20,2,utc_timestamp());
-insert into sessions(session_id,client_id,created_at) values(30,3,utc_timestamp());
-insert into sessions(session_id,client_id,created_at) values(40,4,utc_timestamp());
-insert into sessions(session_id,client_id,created_at) values(50,5,utc_timestamp());
+insert into sessions values(10,1,'ACTIVE',utc_timestamp());
+insert into sessions values(20,2,'ACTIVE',utc_timestamp());
+insert into sessions values(30,3,'ACTIVE',utc_timestamp());
+insert into sessions values(40,4,'ACTIVE',utc_timestamp());
+insert into sessions values(50,5,'ACTIVE',utc_timestamp());
+
+select * from sessions;
 
 
 

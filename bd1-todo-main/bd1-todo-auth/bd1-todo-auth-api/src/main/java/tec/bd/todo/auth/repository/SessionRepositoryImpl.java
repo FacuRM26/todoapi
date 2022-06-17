@@ -14,12 +14,11 @@ import java.util.List;
 public class SessionRepositoryImpl extends BaseRepository<Session> implements SessionRepository {
 
 
-    private static String FIND_ALL_SESSION_QUERY = "select clientid,sessionid,createdat, if(minute(timediff(utc_timestamp(), createdat)) <= 30, \"ACTIVE\", \"INACTIVE\" ) as sessionStatus from sessions order by createdat asc";
-
+    //private static String FIND_ALL_SESSION_QUERY = "select * from sessions";
+    private static String FIND_ALL_SESSION_QUERY = "select client_id,session_id,createdat, if(minute(timediff(utc_timestamp(), createdat)) <= 30, \"ACTIVE\", \"INACTIVE\" ) as sessionStatus from sessions order by createdat asc\"";
     private static String INSERT_SESSION_QUERY = "{call create_session(?,?)}";
-    // call procedure to mysql
     private static String VALIDATE_SESSION_QUERY = "{call validate_session(?)}";
-    private static String UPDATE_SESSION_QUERY = "update sessions set sessionid = ?, createdat = ? where clientid = ?";
+    private static String UPDATE_SESSION_QUERY = "update sessions set session_id = ?, createdat = ? where client_id = ?";
 
 
     public SessionRepositoryImpl(DBManager dbManager) {
@@ -114,8 +113,8 @@ public class SessionRepositoryImpl extends BaseRepository<Session> implements Se
     public Session toEntity(ResultSet resultSet) {
         try {
             var session = new Session(
-                    resultSet.getString("clientid"),
-                    resultSet.getString("sessionid"),
+                    resultSet.getString("client_id"),
+                    resultSet.getString("session_id"),
                     SessionStatus.valueOf(resultSet.getString("sessionStatus").toUpperCase()),
                     resultSet.getDate("createdat")
             );

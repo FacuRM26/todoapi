@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-core/bd1-todo-core.iml" filepath="$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-core/bd1-todo-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-inmemdb/bd1-todo-inmemdb.iml" filepath="$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-inmemdb/bd1-todo-inmemdb.iml" />
       <module fileurl="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-mysql/bd1-todo-mysql.iml" filepath="$PROJECT_DIR$/bd1-todo-main/bd1-todo-app/bd1-todo-mysql/bd1-todo-mysql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bd1-todo-main/bd1-todo-social/bd1-todo-social-api/bd1-todo-social-api.iml" filepath="$PROJECT_DIR$/bd1-todo-main/bd1-todo-social/bd1-todo-social-api/bd1-todo-social-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tarea 3.iml" filepath="$PROJECT_DIR$/.idea/tarea 3.iml" />
     </modules>
   </component>
