@@ -32,3 +32,9 @@ dotnet new classlib -n BD1.Todo.API.Client -lang "C#"
 dotnet new xunit -n BD1.Todo.API.Client.UnitTest -lang "C#"
 ```
 
+## Evaluación
+
+### Tarea 3
+
+Nota 9.5
+
